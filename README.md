@@ -2,8 +2,8 @@
 
 ## Abstract
 This project is based on a jigsaw puzzle. First we divide a square picture into 16 pieces, each with a few bumps and depressions.Then the pieces are placed on a colored background after being disordered and rotated in orientation. This program is about extracting these pieces, aligning and categorising them.The key points of this project are color space transformation, contour extraction and redrawing, finding the convex hull, checking convexity, image rotation, expansion and cropping.
-<div align=center><img width="200" height="200" src="img_presentation/puzzle_unsolved.jpg"/></div>     
-<div align=center><img width="200" height="200" src="img_presentation/results.png"/></div>
+<div align=center><img width="200"  src="img_presentation/puzzle_unsolved.jpg"/></div>     
+<div align=center><img width="200"  src="img_presentation/results.png"/></div>
 
 
 ## Requirements:
@@ -35,7 +35,7 @@ mask1 = cv.inRange(pattern,lower_green,upper_green)
 res = cv.bitwise_and(pattern,pattern, mask= mask1)
 pattern = cv.cvtColor(res,cv.COLOR_HSV2BGR) 
 ```
-<div align=center><img width="200" height="200" src="img_presentation/puzzle_unsolved.jpg"/></div>     
+<div align=center><img width="200"  src="img_presentation/puzzle_unsolved.jpg"/></div>     
 <div align=center><img width="200"  src="img_presentation/color_convert.png"/></div>
 
 * Contour extraction and redrawing\
@@ -75,7 +75,7 @@ for i in range(defects_primary.shape[0]-1,-1,-1):
     cv.circle(pattern2,far,5,[0,0,255],-1)
 cv.circle(pattern2,tuple(cnt_primary[0][0]),5,[0,0,255],-1)
 ```
-<div align=center><img width="200" height="200" src="img_presentation/convexity.png"/></div>
+<div align=center><img width="200"  src="img_presentation/convexity.png"/></div>
 
 * Image expansion and cropping\
 As the pieces we get are small pieces that fit tightly around the edges, there is a risk that the image will be lost during rotation. Therefore the image needs to be expanded before rotation and cropped after rotation.
@@ -103,5 +103,5 @@ M = cv.getRotationMatrix2D(rect[0],rect[2],1)
 pattern3 = cv.warpAffine(pattern3,M,(cols*3,rows*3))
 ```
 
-<div align=center><img width="200" height="200" src="img_presentation/piece_7.png"/></div>      
-<div align=center><img width="200" height="200" src="img_presentation/piece_new_7.png"/></div>
+<div align=center><img width="200"  src="img_presentation/piece_7.png"/></div>      
+<div align=center><img width="200"  src="img_presentation/piece_new_7.png"/></div>
