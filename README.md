@@ -17,9 +17,9 @@ This project is based on a jigsaw puzzle. First we divide a square picture into 
 ## Installation and setup
 To solve this problem, after installing the packages described above, you can simply run the two scripts in this repository to get the extracted and rotated pieces, which will show some images of the process, with the waitkey parameter set to 0, so just hit the space to continue.
 
-The first script is "1_segment_pieces.py", note that on lines 9 and 10 of this script, you need to set the path to the input image. On line 60, you need to specify the path to the output and the name of the output image. The purpose of this script is to extract the pieces from the coloured background.
+The first script is "**[1_segment_pieces.py"](1_segment_pieces.py)**, note that on lines 9 and 10 of this script, you need to set the path to the input image. On line 60, you need to specify the path to the output and the name of the output image. The purpose of this script is to extract the pieces from the coloured background.
 
-The second script is '3_orient_pieces.py'. Note that the path to the input image is specified on lines 16 and 17 of this script, and the path and name of the output image is specified on line 180. The purpose of this script is to rotate the extracted pieces horizontally and vertically.
+The second script is **['3_orient_pieces.py'](3_orient_pieces.py)**. Note that the path to the input image is specified on lines 16 and 17 of this script, and the path and name of the output image is specified on line 180. The purpose of this script is to rotate the extracted pieces horizontally and vertically.
 
 ## Architecture
 There are five key steps in the process, and a brief explanation of how each step is implemented follows.
