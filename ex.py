@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt #import function library which will be used
 import scipy.signal
 
 
-for k in [1]:
+for k in [0]:
 # part1 expand pieces to prepare for further processing
 	pattern = cv.imread('./segmented/piece_'+str(k)+'.png')
 	base = cv.imread('./segmented/piece_'+str(k)+'.png')
@@ -125,7 +125,7 @@ for k in [1]:
 	 
 	# # print tht contour cut out tabs
 	pattern_rectangle = np.ones(pattern1.shape, dtype=np.uint8)*0
-	cv.drawContours(pattern_rectangle, cnt_cut_fill, -1, (255,255,255), thickness=cv.FILLED)
+	cv.drawContours(pattern_rectangle, [cnt_cut_fill], -1, (255,255,255), thickness=cv.FILLED)
 	cv.imshow('',pattern_rectangle)
 	cv.waitKey(0)
 	contours_rectangle,_ = cv.findContours(pattern_rectangle,cv.RETR_TREE,cv.CHAIN_APPROX_NONE)
@@ -137,31 +137,31 @@ for k in [1]:
 
 
 
-	#part3 change origin from top-left to center of mass
-	# M=cv.moments(cnt_cut_fill)
-	# Cx = int(M['m10']/M['m00'])
-	# Cy = int(M['m01']/M['m00'])
-	# for i in range(len(cnt_cut_fill)):
-	# 	cnt_cut_fill[i][0][0],cnt_cut_fill[i][0][1] =  cnt_cut_fill[i][0][1],cnt_cut_fill[i][0][0] #change from (y,x) to (x,y)
-	# 	cnt_cut_fill[i][0][0] -= Cx
-	# 	cnt_cut_fill[i][0][1] -= Cy
+	# part3 change origin from top-left to center of mass
+	M=cv.moments(contours_rectangle[0])
+	Cx = int(M['m10']/M['m00'])
+	Cy = int(M['m01']/M['m00'])
+	for i in range(len(cnt_cut_fill)):
+		cnt_cut_fill[i][0][0],cnt_cut_fill[i][0][1] =  cnt_cut_fill[i][0][1],cnt_cut_fill[i][0][0] #change from (y,x) to (x,y)
+		cnt_cut_fill[i][0][0] -= Cx
+		cnt_cut_fill[i][0][1] -= Cy
 
-	# #use two new variable to store coordinates, finally coor stores the (phi,rho) and give the value to phi,rho
-	# coor = cnt_cut_fill
-	# phi=np.ones([1,len(coor)],dtype=np.float)
-	# rho=np.ones([1,len(coor)],dtype=np.float)
-	# for i in range(len(coor)): 
-	# 	phi[0,i]=math.atan2(coor[i][0][1],coor[i][0][0])
-	# 	rho[0,i]=np.linalg.norm([coor[i][0][0],coor[i][0][1]])
-	# rho_final=rho[0]
-	# phi_final=phi[0]
+	#use two new variable to store coordinates, finally coor stores the (phi,rho) and give the value to phi,rho
+	coor = cnt_cut_fill
+	phi=np.ones([1,len(coor)],dtype=np.float)
+	rho=np.ones([1,len(coor)],dtype=np.float)
+	for i in range(len(coor)): 
+		phi[0,i]=math.atan2(coor[i][0][1],coor[i][0][0])
+		rho[0,i]=np.linalg.norm([coor[i][0][0],coor[i][0][1]])
+	rho_final=rho[0]
+	phi_final=phi[0]
 		
-	# # show (phi) and peak of phi 
-	# plt.plot(rho_final)
-	# plt.title('rho of the piece contour')
-	# peaks,_ =scipy.signal.find_peaks(rho_final,distance=15,height=[80,90])
-	# plt.plot(peaks,rho_final[peaks],'x')
-	# plt.show()
+	# show (phi) and peak of phi 
+	plt.plot(rho_final)
+	plt.title('rho of the piece contour')
+	peaks,_ =scipy.signal.find_peaks(rho_final,distance=15,height=[80,90])
+	plt.plot(peaks,rho_final[peaks],'x')
+	plt.show()
 
 	
 		
