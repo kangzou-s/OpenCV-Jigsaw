@@ -22,6 +22,8 @@ The first script is "**[1_segment_pieces.py"](1_segment_pieces.py)**, note that 
 The second script is **['3_orient_pieces.py'](3_orient_pieces.py)**. Note that the path to the input image is specified on lines 16 and 17 of this script, and the path and name of the output image is specified on line 180. The purpose of this script is to rotate the extracted pieces horizontally and vertically.
 
 ## Architecture
+Here is the flow chart.![flow chart](img_presentation/jigsaw_Diagram.png)
+
 There are five key steps in the process, and a brief explanation of how each step is implemented follows.
 
 * color space transformation\
