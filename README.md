@@ -2,7 +2,10 @@
 
 ## Abstract
 This project is based on a jigsaw puzzle. First we divide a square picture into 16 pieces, each with a few bumps and depressions.Then the pieces are placed on a colored background after being disordered and rotated in orientation. This program is about extracting these pieces, aligning and categorising them.The key points of this project are color space transformation, contour extraction and redrawing, finding the convex hull, checking convexity, image rotation, expansion and cropping.
-![Input](img_presentation/puzzle_unsolved.jpg)
+<div aligh='center'>
+<Input src='img_presentation/puzzle_unsolved.jpg',width=150,height=150/>
+</div>
+
 
 ## Requirements:
 ### Required languages:
