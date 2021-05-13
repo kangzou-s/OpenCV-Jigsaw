@@ -25,7 +25,7 @@ The second script is **['3_orient_pieces.py'](3_orient_pieces.py)**. Note that t
 There are five key steps in the process, and a brief explanation of how each step is implemented follows.
 
 * color space transformation\
-These pieces are placed on a green background. And HSV is a more intuitive color model than RGB. So we start by converting the image to the HSV colour space. After the background filtering we convert back to RGB.
+These pieces are placed on a green background. And **[HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)** is a more intuitive color model than RGB. So we start by converting the image to the HSV colour space. After the background filtering we convert back to RGB.
 
 ```python       
 pattern = cv.cvtColor(pattern,cv.COLOR_BGR2HSV)
