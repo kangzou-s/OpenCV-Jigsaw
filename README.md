@@ -2,6 +2,7 @@
 
 ## Abstract
 This project is based on a jigsaw puzzle. First we divide a square picture into 16 pieces, each with a few bumps and depressions.Then the pieces are placed on a colored background after being disordered and rotated in orientation. This program is about extracting these pieces, aligning and categorising them.The key points of this project are color space transformation, contour extraction and redrawing, finding the convex hull, checking convexity, image rotation, expansion and cropping.
+![Input](img_presentation/puzzle_unsolved.jpg)
 
 ## Requirements:
 ### Required languages:
@@ -24,7 +25,7 @@ There are five key steps in the process, and a brief explanation of how each ste
 * color space transformation\
 These pieces are placed on a green background. And HSV is a more intuitive color model than RGB. So we start by converting the image to the HSV colour space. After the background filtering we convert back to RGB.
 
-```python 		
+```python       
 pattern = cv.cvtColor(pattern,cv.COLOR_BGR2HSV)
 lower_green = np.array([45,50,50])
 upper_green = np.array([81,255,255])
@@ -44,8 +45,8 @@ cv.drawContours(res, contours, -1, (100,100,100), thickness=cv.FILLED)
 The above are only some of the steps in contour extraction and redrawing, the process also requires contour filtering and other steps. This article is not a complete description, but only an example.
 ```python
 for k in range(len(contours)-1,-1,-1):
-	if len(contours[k])<10:
-		contours.pop(k)
+    if len(contours[k])<10:
+        contours.pop(k)
 ```
 
 * Finding convex hull, Checking convexity\
@@ -57,7 +58,7 @@ defects_primary = cv.convexityDefects(cnt_primary,hull_primary)
 defects_primary=np.squeeze(defects_primary)
 # filter defects and draw out
 for i in range(defects_primary.shape[0]-1,-1,-1):
-	s,e,f,d = defects_primary[i]
+    s,e,f,d = defects_primary[i]
     start = tuple(cnt_primary[s][0])
     end = tuple(cnt_primary[e][0])
     far = tuple(cnt_primary[f][0]) 
