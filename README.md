@@ -2,9 +2,8 @@
 
 ## Abstract
 This project is based on a jigsaw puzzle. First we divide a square picture into 16 pieces, each with a few bumps and depressions.Then the pieces are placed on a colored background after being disordered and rotated in orientation. This program is about extracting these pieces, aligning and categorising them.The key points of this project are color space transformation, contour extraction and redrawing, finding the convex hull, checking convexity, image rotation, expansion and cropping.
-<div aligh='center'>
-<Input src='img_presentation/puzzle_unsolved.jpg',width=150,height=150/>
-</div>
+<div align=center><img width="200" height="200" src="img_presentation/puzzle_unsolved.jpg"/></div>     
+<div align=center><img width="200" height="200" src="img_presentation/results.png"/></div>
 
 
 ## Requirements:
@@ -36,6 +35,8 @@ mask1 = cv.inRange(pattern,lower_green,upper_green)
 res = cv.bitwise_and(pattern,pattern, mask= mask1)
 pattern = cv.cvtColor(res,cv.COLOR_HSV2BGR) 
 ```
+<div align=center><img width="200" height="200" src="img_presentation/puzzle_unsolved.jpg"/></div>     
+<div align=center><img width="200"  src="img_presentation/color_convert.png"/></div>
 
 * Contour extraction and redrawing\
 The key to the extraction of pieces and subsequent processing is to find the contour, and the subsequent cutting and rotating steps are based on the analysis of the contour's shape. This is why this step is so important.
@@ -54,6 +55,7 @@ for k in range(len(contours)-1,-1,-1):
 
 * Finding convex hull, Checking convexity\
 To determine the shape of the edge, we need to find the convex hull, and check the convexity.
+
 ```python
 # find hull
 hull_primary = cv.convexHull(cnt_primary,returnPoints = False)
@@ -73,6 +75,7 @@ for i in range(defects_primary.shape[0]-1,-1,-1):
     cv.circle(pattern2,far,5,[0,0,255],-1)
 cv.circle(pattern2,tuple(cnt_primary[0][0]),5,[0,0,255],-1)
 ```
+<div align=center><img width="200" height="200" src="img_presentation/convexity.png"/></div>
 
 * Image expansion and cropping\
 As the pieces we get are small pieces that fit tightly around the edges, there is a risk that the image will be lost during rotation. Therefore the image needs to be expanded before rotation and cropped after rotation.
@@ -85,41 +88,20 @@ cols = pattern.shape[1]
 pattern1=np.zeros([rows*3,cols*3,3],dtype=np.uint8)  
 pattern1[150:150+rows,150:150+cols,:]=base
 
-# Cropping pieces
+#Cropping pieces
 contours, _ = cv.findContours(fin, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
 x,y,w,h = cv.boundingRect(contours[0])
 cv.imwrite('./segmented/piece_'+'new_'+'6'+'.png',fin1[y:y+h, x:x+w])
-
 ```
 
 * Image rotation\
 After the contour has been cut and filled we can find a standard square. This square is analyzed to find its center of rotation and angle of rotation. We can then rotate it back to horizontal and vertical.
+
 ```python
 rect = cv.minAreaRect(cnt_cut_fill)
 M = cv.getRotationMatrix2D(rect[0],rect[2],1)
 pattern3 = cv.warpAffine(pattern3,M,(cols*3,rows*3))
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div align=center><img width="200" height="200" src="img_presentation/piece_7.png"/></div>      
+<div align=center><img width="200" height="200" src="img_presentation/piece_new_7.png"/></div>
