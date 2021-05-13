@@ -170,11 +170,28 @@ for k in range(16):
 
 	
 		
-# rotate to horizontal and vertical
+# rotate to horizontal and vertical and cropping
 	rect = cv.minAreaRect(cnt_cut_fill)
 	M = cv.getRotationMatrix2D(rect[0],rect[2],1)
 	pattern3 = cv.warpAffine(pattern3,M,(cols*3,rows*3))
 	cv.imshow('',pattern3)
 	cv.waitKey(0)
 
+	fin =pattern3.copy()
+	fin1=pattern3.copy()
+	fin = (0.3*fin[:,:,2] + 0.6*fin[:,:,1] + 0.1*fin[:,:,0]).astype(np.uint8)
+	fin = 255 * (fin > 5 ).astype(np.uint8)
+	contours, _ = cv.findContours(fin, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+	x,y,w,h = cv.boundingRect(contours[0])
+	pattern3 = fin1[y:y+h, x:x+w]
+
+
 	cv.imwrite('./results/piece_'+'new_'+str(k)+'.png',pattern3)
+
+# Present all results on one graph
+for i in range(16):
+	plt.subplot(4, 4, i+1)
+	img=cv.imread('./results/piece_'+'new_'+str(i)+'.png')
+	plt.imshow(img)
+plt.show()
+
