@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt #import function library which will be used
 import scipy.signal
 
 
-for k in [0]:
+for k in [1]:
 # part1 expand pieces to prepare for further processing
 	pattern = cv.imread('./segmented/piece_'+str(k)+'.png')
 	base = cv.imread('./segmented/piece_'+str(k)+'.png')
@@ -128,14 +128,19 @@ for k in [0]:
 	cv.drawContours(pattern_rectangle, [cnt_cut_fill], -1, (255,255,255), thickness=cv.FILLED)
 	cv.imshow('',pattern_rectangle)
 	cv.waitKey(0)
-	contours_rectangle,_ = cv.findContours(pattern_rectangle,cv.RETR_TREE,cv.CHAIN_APPROX_NONE)
-	test=np.ones(pattern1.shape, dtype=np.uint8)*255
-	cv.drawContours(test, contours_rectangle, -1, (0,0,0), thickness=cv.FILLED)
+	contours_rectangle,_ = cv.findContours(pattern_rectangle,cv.RETR_TREE,cv.CHAIN_APPROX_SIMPLE)
+	test=np.ones(pattern1.shape, dtype=np.uint8)*0
+	cv.drawContours(test, contours_rectangle, -1, (255,255,255), thickness=cv.FILLED)
 	cv.imshow('',test)
 	cv.waitKey(0)
 
+	M=cv.moments(contours_rectangle[0])
+	Cx = int(M['m10']/M['m00'])
+	Cy = int(M['m01']/M['m00'])
 
-
+	cv.circle(test,(Cx,Cy),5,[0,0,255],-1)
+	cv.imshow('',test)
+	cv.waitKey(0)
 
 	# part3 change origin from top-left to center of mass
 	M=cv.moments(contours_rectangle[0])
