@@ -79,6 +79,20 @@ cv.circle(pattern2,tuple(cnt_primary[0][0]),5,[0,0,255],-1)
 ```
 <div align=center><img width="200"  src="img_presentation/convexity.png"/></div>
 
+* Distinguish between blank and tab \
+In order to find the exact centre of mass of the piece, we need to first convert it to a standard square, the most important part of this process is to identify the tab and blank.
+On the basis of the convexity found, we test every two neighbouring convexity points to see if they form a circle. If they form a circle, then they are tab, otherwise, they are blank.
+Here we use that the square of the circumference of the circle divided by the area equals 4*pi.
+```python
+f1=defects_primary[0][2]
+f2=defects_primary[num_defects_primary-1][2]
+index_firstlast=np.hstack((np.arange(0,f1-4),np.arange(f2+4,num_cnt_primary-1)))
+cnt_firstlast=cnt_primary[index_firstlast]
+L = cv.arcLength(cnt_firstlast,True) 
+area = cv.contourArea(cnt_firstlast)
+flag = L*L/area/(4*math.pi)
+print(flag)
+```
 * Image expansion and cropping\
 As the pieces we get are small pieces that fit tightly around the edges, there is a risk that the image will be lost during rotation. Therefore the image needs to be expanded before rotation and cropped after rotation.
 ```python
