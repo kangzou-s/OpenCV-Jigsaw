@@ -1,7 +1,8 @@
 # Jigsaw puzzle detection and alignment with OpenCV
 
 ## Abstract
-This project is based on a jigsaw puzzle. First we divide a square picture into 16 pieces, each with a few bumps and depressions.Then the pieces are placed on a colored background after being disordered and rotated in orientation. This program is about extracting these pieces, aligning and categorising them.The key points of this project are color space transformation, contour extraction and redrawing, finding the convex hull, checking convexity, image rotation, expansion and cropping. The codes are written in python 3.8.2 and run on a Macos 11.2.3. 
+This project is a step of a larger problem: automated solution of the jigsaw puzzle.I extract and orient pieces because this is a necessary step before attempting to solve the puzzle automatically. First we divide a square picture into 16 pieces, each with a few bumps and depressions.Then the pieces are placed on a colored background after being disordered and rotated in orientation. This program is about extracting these pieces, aligning and categorising them.So the "material" show in the documentation are computer generated, and are not the real photos of a puzzle. This is done to simplify the testing process, but ultimately the goal is to do the same with real photos.
+The key points of this project are color space transformation, contour extraction and redrawing, finding the convex hull, checking convexity, image rotation, expansion and cropping. The codes are written in python 3.8.2 and run on a Macos 11.2.3. 
 <div align=center><img width="200"  src="img_presentation/puzzle_unsolved.jpg"/></div>     
 <div align=center><img width="200"  src="img_presentation/results.png"/></div>
 
