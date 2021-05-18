@@ -197,7 +197,7 @@ pattern3 = cv.warpAffine(pattern3,M,(cols*3,rows*3))
 
 ## Conclusion
 The work I have done so far is shown below.
-<div align=center><img width="200"  src="img_presentation/puzzle_unsolved.jpg"/></div>     
-<div align=center><img width="200"  src="img_presentation/results.png"/></div>
+<div align=center><img width="400"  src="img_presentation/puzzle_unsolved.jpg"/></div>     
+<div align=center><img width="400"  src="img_presentation/results.png"/></div>
 I have extracted these 16 pieces and rotated them to the horizontal and vertical directions. Also, in the process, we found the type of each edge (flat/pin/hole).
 In order to achieve an AUTOMATED solution of the jigsaw puzzle, the next thing we do is to put the 16 pieces together. Each piece has four edges, while a flat type can only be paired with a flat type and a pin can only be paired with a hole. We can reduce the workload in this way. So what kind of relationship is called a pairing? Normally, an image has a gradual colour change and no sudden changes occur. So we can calculate the 'rate' of colour change in the area around the edge of each piece, which is the first derivative of the value characterising the colour along the vertical edge. Once the pairing relationship has been determined, the stitching can be completed.
