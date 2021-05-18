@@ -3,8 +3,6 @@
 ## Abstract
 This project is a step of a larger problem: automated solution of the jigsaw puzzle.I extract and orient pieces because this is a necessary step before attempting to solve the puzzle automatically. First we divide a square picture into 16 pieces, each with a few bumps and depressions.Then the pieces are placed on a colored background after being disordered and rotated in orientation. This program is about extracting these pieces, aligning and categorising them.So the "material" show in the documentation are computer generated, and are not the real photos of a puzzle. This is done to simplify the testing process, but ultimately the goal is to do the same with real photos.
 The key points of this project are color space transformation, contour extraction and redrawing, finding the convex hull, checking convexity, image rotation, expansion and cropping. The codes are written in python 3.8.2 and run on a Macos 11.2.3. 
-<div align=center><img width="200"  src="img_presentation/puzzle_unsolved.jpg"/></div>     
-<div align=center><img width="200"  src="img_presentation/results.png"/></div>
 
 
 ## Requirements:
@@ -99,7 +97,7 @@ cv.circle(pattern2,tuple(cnt_primary[0][0]),5,[0,0,255],-1)
 
 * Distinguish between blank and tab \
 In order to find the exact centre of mass of the piece, we need to first convert it to a standard square, the most important part of this process is to identify the tab and blank.
-On the basis of the convexity found, we test every two neighbouring convexity points to see if they form a circle. If they form a circle, then they are tab, otherwise, they are blank.
+On the basis of the convexity found, we test every two neighbouring convexity defects points to see if they form a circle. If they form a circle, then they are tab, otherwise, they are blank.
 Here we use that the square of the circumference of the circle divided by the area equals 4*pi.
 ```python
 f1=defects_primary[0][2]
@@ -137,7 +135,7 @@ cnt_cut_fill=cnt_primary[index_cnt]
 <div align=center><img width="200"  src="img_presentation/Standard_square.png"/></div> 
 
 * Finding four corners\
-For some reason we need to find the four corners of every piece.The main idea of the approach I have applied is to find the standard rectangle and its centre of mass on the basis of the previous ideas. We then obtain the coordinates of the contour of each piece with respect to the centre of mass, after which we convert the coordinates to polar coordinates and draw them. The four peaks in the polar plot are the four corners of the piece we are looking for.
+Each piece is initially randomly rotated when the puzzle is scattered on the table. To start putting it together automatically, the pieces need to be oriented all in one direction, so that their corners are both horizontally and vertically stacked, like in the real puzzle when it is solved we need to find the four corners of every piece. The main idea of the approach I have applied is to find the standard rectangle and its center of mass on the basis of the previous ideas. We then obtain the coordinates of the contour of each piece with respect to the center of mass, after which we convert the coordinates to polar coordinates and draw them. The four peaks in the polar plot are the four corners of the piece we are looking for.
 ```python
 
 # change original point from top-left to center of mass
@@ -195,3 +193,11 @@ pattern3 = cv.warpAffine(pattern3,M,(cols*3,rows*3))
 
 <div align=center><img width="200"  src="img_presentation/piece_7.png"/></div>      
 <div align=center><img width="200"  src="img_presentation/piece_new_7.png"/></div>
+
+
+## Conclusion
+The work I have done so far is shown below.
+<div align=center><img width="200"  src="img_presentation/puzzle_unsolved.jpg"/></div>     
+<div align=center><img width="200"  src="img_presentation/results.png"/></div>
+I have extracted these 16 pieces and rotated them to the horizontal and vertical directions. Also, in the process, we found the type of each edge (flat/pin/hole).
+In order to achieve an AUTOMATED solution of the jigsaw puzzle, the next thing we do is to put the 16 pieces together. Each piece has four edges, while a flat type can only be paired with a flat type and a pin can only be paired with a hole. We can reduce the workload in this way. So what kind of relationship is called a pairing? Normally, an image has a gradual colour change and no sudden changes occur. So we can calculate the 'rate' of colour change in the area around the edge of each piece, which is the first derivative of the value characterising the colour along the vertical edge. Once the pairing relationship has been determined, the stitching can be completed.
