@@ -29,8 +29,8 @@ pattern = cv.dilate(pattern,kernel2,iterations = 1)
 #part 2 find contour
 
 contours, _ = cv.findContours(pattern, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-for k in range(len(contours)-1,-1,-1):
-	if len(contours[k])<10:
+for k in range(len(contours)-1,-1,-1): 								#discard small erroneous contours
+	if len(contours[k])<10:											#after trying, 10 is suitable
 		contours.pop(k)
 print('Contour lengths: ', [len(i) for i in contours])
 
